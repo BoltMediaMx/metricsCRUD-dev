@@ -2,7 +2,7 @@
 class Database
 {
     // config
-    private static $dbName = 'metricsDev' ;
+    private static $dbName = 'bm_prog_metricas' ;
     private static $dbHost = 'localhost' ;
     private static $dbUsername = 'root';
     private static $dbUserPassword = '';

@@ -1,53 +1,42 @@
 <?php
     require 'database.php';
 
+    
+
     if (!empty ($_POST)) {
-        $nombreClienteError = null;
+        $nombreCommunityError = null;
         $direccionError = null;
         $emailError = null;
         $telefonoError = null;
-        $sitioError = null;
 
         $valid = true;
 
-        $nombreCliente = $_POST['nombreCliente'];
+        $nombreCommunity = $_POST['nombreCommunity'];
         $direccion = $_POST['direccion'];
         $email = $_POST['email'];
         $telefono = $_POST['telefono'];
-        $sitioWeb = $_POST['sitioWeb'];
 
-        if (empty($nombreCliente)) {
-            $nombreClienteError = 'Porfavor ingrese un nombre';
+        if (empty($nombreCommunity)) {
+            $nombreCommunityError = 'Porfavor ingrese un nombre';
             $valid = false;
         }
         if (empty($direccion)) {
             $direccionError = 'Porfavor ingrese una direccion';
             $valid = false;
         }
-        if (empty($email)) {
-            $emailError = 'Porfavor ingrese un correo electronico';
-            $valid = false;
-        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $emailError = 'Porfavor ingrese un correo electronico valido';
-            $valid = false;
-        }
         if (empty($telefono)) {
             $telefonoError = 'Porfavor ingrese un numero telefonico';
-            $valid = false;
-        }
-        if (empty($sitioWeb)) {
-            $sitioError = 'Porfavor ingrese un sitio web';
             $valid = false;
         }
 
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO clientes (nombreCliente,direccionCliente,correoCliente,telefonoCliente,sitioWebCliente) values(?, ?, ?, ?, ?)";
+            $sql = "INSERT INTO bm_community_managers (nombreCommunity,direccionCommunity,correoCommunity,telefonoCommunity) values(?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($nombreCliente,$direccion,$email,$telefono,$sitioWeb));
+            $q->execute(array($nombreCommunity,$direccion,$email,$telefono));
             Database::disconnect(); 
-            header("Location: indexCliente.php");
+            header("Location: indexCommunity.php");
         }
     }
 ?>
@@ -66,16 +55,16 @@
     <div class="container">
         <div class="span10 offset1">
             <div class="row">
-                <h3>Crear un cliente nuevo</h3>
+                <h3>Crear un Community Manager nuevo</h3>
             </div>
-            <form class="form-horizontal" action="crearCliente.php" method="post">
-                <div class="control-group <?php echo !empty($nombreClienteError)?'error':'';?>">
-                    <label class="control-label">Nombre del Cliente</label>
+            <form class="form-horizontal" action="crearCommunity.php" method="post">
+                <div class="control-group <?php echo !empty($nombreCommunityError)?'error':'';?>">
+                    <label class="control-label">Nombre del Community Manager</label>
                     <div class="controls">
-                        <input name="nombreCliente" type="text" placeholder="Nombre del Cliente"
-                        value="<?php echo !empty($nombreCliente)?$nombreCliente:'';?>">
-                        <?php if (!empty($nombreClienteError)): ?>
-                            <span class="help-inline"><?php echo $nombreClienteError;?></span>
+                        <input name="nombreCommunity" type="text" placeholder="Nombre"
+                        value="<?php echo !empty($nombreCommunity)?$nombreCommunity:'';?>">
+                        <?php if (!empty($nombreCommunityError)): ?>
+                            <span class="help-inline"><?php echo $nombreCommunityError;?></span>
                         <?php endif; ?>
                     </div>
                 </div>
@@ -100,7 +89,7 @@
                         </div>
                       </div>
                 <div class="control-group <?php echo !empty($telefonoError)?'error':'';?>">
-                    <label class="control-label">Numero de telefono</label>
+                    <label class="control-label">Numero de telefono de contacto</label>
                     <div class="controls">
                         <input name="telefono" type="text"  placeholder="XXXXXXXXX" 
                         value="<?php echo !empty($telefono)?$telefono:'';?>">
@@ -109,19 +98,9 @@
                        <?php endif;?>
                     </div>
                 </div>
-                <div class="control-group <?php echo !empty($sitioError)?'error':'';?>">
-                    <label class="control-label">Sitio Web</label>
-                    <div class="controls">
-                        <input name="sitioWeb" type="text"  placeholder="ejemplo.com" 
-                        value="<?php echo !empty($sitioWeb)?$sitioWeb:'';?>">
-                        <?php if (!empty($sitioWeb)): ?>
-                            <span class="help-inline"><?php echo $sitioError;?></span>
-                       <?php endif;?>
-                    </div>
-                </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">Crear</button>
-                    <a class="btn btn-info" href="indexCliente.php">Volver</a>
+                    <a class="btn" href="indexCommunity.php">Volver</a>
                 </div>
             </form>
         </div>

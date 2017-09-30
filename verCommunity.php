@@ -8,11 +8,11 @@
     }
 
     if ($id == null) { 
-        header("Location: indexCliente.php");
+        header("Location: indexCommunity.php");
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM clientes where idCliente = ?";
+        $sql = "SELECT * FROM bm_community_managers where idCommunity = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@
 <div class="container">
     <div class="span10 offset1">
         <div class="row">
-            <h3>Ver Cliente</h3>
+            <h3>Ver Community Manager</h3>
         </div>
 
         <div class ="form-horizontal">
@@ -41,7 +41,7 @@
                 <label class="control-label">Nombre</label>
                 <div class="controls">
                     <label class="checkbox">
-                        <?php echo $data['nombreCliente'];?>
+                        <?php echo $data['nombreCommunity'];?>
                     </label>
                 </div>
             </div>
@@ -49,7 +49,7 @@
                 <label class="control-label">Direccion</label>
                 <div class="controls">
                     <label class="checkbox">
-                        <?php echo $data['direccionCliente'];?>
+                        <?php echo $data['direccionCommunity'];?>
                     </label>
                 </div>
             </div>
@@ -57,7 +57,7 @@
                 <label class="control-label">Correo Electronico</label>
                 <div class="controls">
                     <label class="checkbox">
-                        <?php echo $data['correoCliente'];?>
+                        <?php echo $data['correoCommunity'];?>
                     </label>
                 </div>
             </div>
@@ -65,28 +65,18 @@
                 <label class="control-label">Telefono</label>
                 <div class="controls">
                     <label class="checkbox">
-                        <?php echo $data['telefonoCliente'];?>
-                    </label>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Contacto</label>
-                <div class="controls">
-                    <label class="checkbox">
-                        TODO
-                    </label>
-                </div>
-            </div>
-            <div class="control-group">
-                <label class="control-label">Sitio Web</label>
-                <div class="controls">
-                    <label class="checkbox">
-                        <?php echo '<a href='.$data['sitioWebCliente'].'>'.$data['sitioWebCliente'].'</a>'?>
+                        <?php echo $data['telefonoCommunity'];?>
                     </label>
                 </div>
             </div>
             <div class="form-actions">
-                <a class="btn btn-info" href="indexCliente.php">Volver</a>
+                <?php
+                    echo '<a class="btn btn-success" href="verCuentas.php?id='.$id.'">Ver Cuentas</a>';
+                ?>
+                <?php
+                    echo '<a class="btn btn-success" href="crearMetricosFacebook.php?id='.$id.'">Añadir Cuenta de Facebook</a>';
+                ?>
+                <a class="btn btn-info" href="indexCommunity.php">Volver</a>
             </div>
         </div>
     </div>

@@ -1,16 +1,6 @@
 <?php
     require 'database.php';
 
-    $id = null;
-    
-    if (!empty($_GET['id'])) {
-        $id = $_REQUEST['id'];
-    }
-    
-    if ($id == null) { 
-        header("Location: indexCliente.php");
-    }
-
     if (!empty ($_POST)) {
         $nombreClienteError = null;
         $direccionError = null;
@@ -19,31 +9,38 @@
 
         $valid = true;
 
-        $nombreProyecto = $_POST['nombreProyecto'];
-        $fechaCreacion = $_POST['fechaCreacion'];
-        $fechaEntrega = $_POST['fechaEntrega'];
+        $nombreCliente = $_POST['nombreCliente'];
+        $direccion = $_POST['direccion'];
+        $email = $_POST['email'];
+        $telefono = $_POST['telefono'];
 
-        if (empty($nombreProyecto)) {
-            $nombreClienteError = 'Porfavor ingrese un nombre para el Proyecto';
+        if (empty($nombreCliente)) {
+            $nombreClienteError = 'Porfavor ingrese un nombre';
             $valid = false;
         }
-        if (empty($fechaCreacion)) {
-            $direccionError = 'Porfavor ingrese una fecha de creacion';
+        if (empty($direccion)) {
+            $direccionError = 'Porfavor engrese una direccion';
             $valid = false;
         }
-        if (empty($fechaEntrega)) {
-            $emailError = 'Porfavor ingrese una fecha de entrega';
+        if (empty($email)) {
+            $emailError = 'Porfavor ingrese un correo electronico';
+            $valid = false;
+        } else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            $emailError = 'Porfavor ingrese un correo electronico valido';
             $valid = false;
         }
-        //TODO work on date validation
+        if (empty($telefono)) {
+            $telefonoError = 'Porfavor ingrese un numero telefonico';
+            $valid = false;
+        }
+
         if ($valid) {
             $pdo = Database::connect();
             $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-            $sql = "INSERT INTO proyecto (nombre,fechaCreacion,fechaEntrega,idCliente) values(?, ?, ?, ?)";
+            $sql = "INSERT INTO cliente (nombre,direccion,email,telefono) values(?, ?, ?, ?)";
             $q = $pdo->prepare($sql);
-            $q->execute(array($nombreProyecto,$fechaCreacion,$fechaEntrega,$id));
+            $q->execute(array($nombreCliente,$direccion,$email,$telefono));
             Database::disconnect(); 
-            //TODO redirect to client's page
             header("Location: indexCliente.php");
         }
     }
@@ -63,7 +60,7 @@
     <div class="container">
         <div class="span10 offset1">
             <div class="row">
-                <h3>Crear un cliente nuevo</h3>
+                <h3>Crear un Community Manager nuevo</h3>
             </div>
             <form class="form-horizontal" action="crearCliente.php" method="post">
                 <div class="control-group <?php echo !empty($nombreClienteError)?'error':'';?>">
@@ -108,7 +105,7 @@
                 </div>
                 <div class="form-actions">
                     <button type="submit" class="btn btn-success">Crear</button>
-                    <a class="btn" href="indexCliente.php">Atras</a>
+                    <a class="btn" href="indexCliente.php">Volver</a>
                 </div>
             </form>
         </div>
