@@ -12,7 +12,7 @@
     } else {
         $pdo = Database::connect();
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        $sql = "SELECT * FROM bm_community_managers where idCommunity = ?";
+        $sql = "SELECT * FROM bm_community_managers where idCommunityManager = ?";
         $q = $pdo->prepare($sql);
         $q->execute(array($id));
         $data = $q->fetch(PDO::FETCH_ASSOC);
@@ -70,12 +70,6 @@
                 </div>
             </div>
             <div class="form-actions">
-                <?php
-                    echo '<a class="btn btn-success" href="verCuentas.php?id='.$id.'">Ver Cuentas</a>';
-                ?>
-                <?php
-                    echo '<a class="btn btn-success" href="crearMetricosFacebook.php?id='.$id.'">Añadir Cuenta de Facebook</a>';
-                ?>
                 <a class="btn btn-info" href="indexCommunity.php">Volver</a>
             </div>
         </div>

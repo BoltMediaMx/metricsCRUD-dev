@@ -4,18 +4,56 @@
     color: red;
 }
 
+/*
 .form-actions {
     margin-top: 50px;
     width: 800px;
-}
+} */
 
-.control-label {
-    font-size: 20px;
+.control-group .control-label {
+    font-size: 14px;
     font-weight: bold;
+    color:red;
 }
 
-.control-group {
-    width: 50%;
-    margin-left: auto;
-    margin-right: auto;
+.controls {
+    margin-top: 40px;
+}
+
+hr {
+    width: 80%;
+    height: 5px;
+    background-color: red;
+    color: red;
+    border: 0 none;
+    margin: 5px auto;
+}
+
+.metrics-container {
+    background-color:gray;
+}
+
+#bootstrap-overrides .metrics-header {
+    display: table;
+    margin-bottom: 20px;
+}
+
+#bootstrap-overrides .nombre-cliente-col {
+    padding-right: 15px;
+    padding-left: 15px;
+    position: relative;
+    min-height: 1px;
+    -webkit-box-sizing: border-box; 
+    margin-left: 8.33333333%;
+    float: none;
+    display: table-cell;
+    vertical-align: bottom;
+}
+
+.body-row {
+    margin-top: 20px;
+}
+
+.metrics {
+    font-size: 15px;
 }

@@ -29,14 +29,14 @@
                     <?php 
                         include 'database.php';
                         $pdo = Database::connect();
-                        $sql = 'SELECT * FROM bm_community_managers ORDER BY idCommunity DESC';
+                        $sql = 'SELECT * FROM bm_community_managers ORDER BY idCommunityManager DESC';
                         foreach($pdo->query($sql) as $row) {
                             echo '<tr>';
                             echo '<td>'.$row['nombreCommunity'].'</td>';
                             echo '<td>'.$row['correoCommunity'].'</td>';
                             echo '<td>'.$row['direccionCommunity'].'</td>';
                             echo '<td>'.$row['telefonoCommunity'].'</td>';
-                            echo '<td><a class="btn" href="verCommunity.php?id='.$row['idCommunity'].'">Ver</a></td>';
+                            echo '<td><a class="btn" href="verCommunity.php?id='.$row['idCommunityManager'].'">Ver</a></td>';
                             echo '</tr>';
                         }
                         Database::disconnect();     

@@ -10,10 +10,10 @@
 <body>
     <div class="container">
         <div class="row header">
-            <h3> Cuentas de Facebook </h3>
+            <h3> Cuentas de Instagram </h3>
         </div>
         <div class="row content">
-            <a href="crearCuentaFacebook.php" class="btn btn-success">Añadir cuenta nueva</a>
+            <a href="crearCuentaInstagram.php" class="btn btn-success">Añadir cuenta nueva</a>
             <div class="buffer-vertical" style="margin-top:30px"></div>
             <table class="table table-striped table-bordered">
                 <thead>
@@ -28,7 +28,7 @@
                     <?php 
                         include 'database.php';
                         $pdo = Database::connect();
-                        $sql = 'SELECT * FROM cuenta_facebook ORDER BY idCuentaFacebook DESC';
+                        $sql = 'SELECT * FROM cuenta_instagram ORDER BY idCuentaInstagram DESC';
                         foreach($pdo->query($sql) as $row) {
                             $communityQuery = 'SELECT nombreCommunity FROM bm_community_managers WHERE idCommunityManager = ?';
                             $clienteQuery = 'SELECT nombreCliente FROM clientes WHERE idCliente = ?';
@@ -48,7 +48,7 @@
                             echo '<td>
                                     <a href="verCommunity.php?id='.$row['idCommunityManager'].'">'.$nombreCommunity['nombreCommunity'].'</a>
                                   </td>';
-                            echo '<td><a class="btn" href="verCuentaFacebook.php?id='.$row['idCuentaFacebook'].'">Ver</a></td>';
+                            echo '<td><a class="btn" href="verCuentaInstagram.php?id='.$row['idCuentaInstagram'].'">Ver</a></td>';
                             echo '</tr>';
                         }
                         Database::disconnect();     
